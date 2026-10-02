@@ -1,0 +1,36 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: hotel-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 505409
+      MYSQL_DATABASE: hotelmanagement
+    ports:
+      - "3307:3306"
+    volumes:
+      - hotel-mysql-data:/var/lib/mysql
+
+  backend:
+    image: hotel-backend:cie
+    container_name: hotel-backend
+    ports:
+      - "8081:8080"
+    environment:
+      databaseUrl: jdbc:mysql://mysql:3306/hotelmanagement
+      databaseUsername: root
+      databasePassword: 505409
+      jwtsecretKey: docker-test-secret-key-123456789
+    depends_on:
+      - mysql
+
+  frontend:
+    image: hotel-frontend:cie
+    container_name: hotel-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  hotel-mysql-data:
