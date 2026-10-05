@@ -5,7 +5,8 @@ This project is being used for the DOSS-TH CIE-01 DevOps demonstration.
 Git → Jenkins → Docker → Kubernetes → Prometheus → Grafana
 
 CI/CD integration is enabled through Jenkins.
-### CI Trigger Test
+
 Git push to the main branch is configured to trigger the Jenkins pipeline.
 
-Test 2
+CI/CD test
+
