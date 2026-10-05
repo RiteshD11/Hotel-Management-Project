@@ -1,5 +1,3 @@
-# Hotel Management Project
+## DevOps Workflow
 
-This project is being used for the DOSS-TH CIE-01 DevOps demonstration.
-
-Git → Jenkins → Docker → Kubernetes → Prometheus → Grafana
+This project follows a DevOps workflow using Git, Jenkins, Docker, Kubernetes, Prometheus, and Grafana.
