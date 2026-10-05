@@ -17,19 +17,12 @@ public class MyUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User user=userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
 
-        if(user==null){
-            if (user.getEmail()==null){
-
-                System.out.println("User Not Found 404");
-
-                throw new UsernameNotFoundException("404 Error");
-            }else{
-                return new UserPrinciple(user);
-            }
+        if (user == null) {
+            System.out.println("User Not Found: " + email);
+            throw new UsernameNotFoundException("User not found with email: " + email);
         }
-           return new UserPrinciple(user);
-
+        return new UserPrinciple(user);
     }
 }
