@@ -70,6 +70,7 @@ pipeline {
         stage('Deploy Backend to Kubernetes') {
             steps {
                 sh 'kubectl apply -f k8s/backend.yaml'
+                sh 'kubectl rollout restart deployment/backend'
             }
         }
 
