@@ -24,11 +24,15 @@ public class UserRegistrationS {
         userRepository.save(user);
 
 
-        // mail
-        String sub="Registration Successfull..";
-        String email=user.getEmail();
-        String body="WEL-COME\nDear User,\nYou are suceessfully register to hotel\n";
-        emailService.sendEmail(email,sub,body);
+        // mail notification (optional / best-effort)
+        try {
+            String sub="Registration Successfull..";
+            String email=user.getEmail();
+            String body="WEL-COME\nDear User,\nYou are suceessfully register to hotel\n";
+            emailService.sendEmail(email,sub,body);
+        } catch (Exception e) {
+            System.out.println("[DEV NOTICE] Registration email could not be sent: " + e.getMessage());
+        }
 
         return user.getEmail();
     }
