@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        KUBECONFIG = '/home/piyush05/.kube/config'
+        MINIKUBE_HOME = '/home/piyush05/.minikube'
+    }
+
     triggers {
         githubPush()
     }
