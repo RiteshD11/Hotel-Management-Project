@@ -19,8 +19,6 @@ import java.util.Random;
 @Service
 public class orderSer {
     @Autowired
-    public emailService emailService;
-    @Autowired
     private ordersRepo ordersrepo;
 
     @Autowired
@@ -70,17 +68,6 @@ public class orderSer {
         order.setRoomNo(roomNumber);
         int orderId= ordersrepo.save(order).getOrderId();
         roomRepository.updateroom(bkclass.getRoomId());
-        String sub="Booking Successfull..";
-        String email=user.getEmail();
-        String body="Dear "+user.getUserName()+
-                ",\n"+"\nYour Room is booked successfully\n\n" +
-                "Room Details are : \n\n" +
-                "Room Number : "+roomNumber+"\n"+
-                "Room Type : "+rm.getRoomType()+"\n"+
-                "Room Description : "+rm.getRoomDescription()+"\n"+
-                "Check In Date : "+bkclass.getCheckin()+"\n"+
-                "\n\nThank You \n";
-        emailService.sendEmail(email,sub,body);
 
         return "Order Placed Successfully\nYour Order Id is "+orderId;
     }
@@ -107,14 +94,6 @@ public class orderSer {
             double bill=order.getRoomm().getRoomRent();
 
                     bill*=(double) ordersrepo.getAmount(orderId);
-            // send mail
-            String sub="Checkout Done";
-            String body="Dear "+order.getUser().getUserName()+" ,\n"+
-                        "Thank for booking room \n\n"+
-                        "Your Bill price is : "+bill+"\n\n"+
-                        "Visite Again \n";
-            String email=order.getUser().getEmail();
-            emailService.sendEmail(email,sub,body);
             ordersrepo.deleteById(orderId);
             roomRepository.checkoutDone(roomId);
 

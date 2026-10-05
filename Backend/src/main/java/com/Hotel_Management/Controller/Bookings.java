@@ -4,7 +4,6 @@ import com.Hotel_Management.Model.*;
 import com.Hotel_Management.Repository.UserRepository;
 import com.Hotel_Management.Repository.roomRepository;
 import com.Hotel_Management.Service.UserRegistrationS;
-import com.Hotel_Management.Service.emailService;
 import com.Hotel_Management.Service.orderSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,8 +22,6 @@ public class Bookings {
     @Autowired
     public UserRepository userRepository;
 
-    @Autowired
-    public emailService emailService;
     @PostMapping("/bookroom")
     public  String checkInroom(@RequestBody bookingclass bkclass){
 
