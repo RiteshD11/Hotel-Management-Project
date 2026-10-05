@@ -15,24 +15,10 @@ public class UserRegistrationS {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private emailService emailService;
-
     public String register(User user){
 
         user.setRole("USER");
         userRepository.save(user);
-
-
-        // mail notification (optional / best-effort)
-        try {
-            String sub="Registration Successfull..";
-            String email=user.getEmail();
-            String body="WEL-COME\nDear User,\nYou are suceessfully register to hotel\n";
-            emailService.sendEmail(email,sub,body);
-        } catch (Exception e) {
-            System.out.println("[DEV NOTICE] Registration email could not be sent: " + e.getMessage());
-        }
 
         return user.getEmail();
     }
