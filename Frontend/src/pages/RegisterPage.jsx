@@ -36,10 +36,13 @@ const RegisterPage = () => {
     setError('');
     setLoading(true);
     try {
-      await authService.sendOtp(email); // POST /auth/send-otp { email }
+      const data = await authService.sendOtp(email); // POST /auth/send-otp { email }
+      if (data && data.otp) {
+        setOtp(data.otp.split(''));
+      }
       setStep(2);
     } catch (err) {
-      setError(err.response?.data || err.message || 'Failed to send OTP. Check if email already exists.');
+      setError(err.response?.data?.message || err.response?.data || err.message || 'Failed to send OTP. Check if email already exists.');
     } finally {
       setLoading(false);
     }

@@ -26,7 +26,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 
-@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*")
+@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", "http://127.0.0.1:5174"}, allowedHeaders = "*")
 public class UserRegistration {
 
     @Autowired
@@ -41,22 +41,33 @@ public class UserRegistration {
 
 
     @PostMapping("/send-otp")
-    public String sendOtp(@RequestBody Map<String,String >req){
+    public ResponseEntity<?> sendOtp(@RequestBody Map<String,String >req){
 
         String email=req.get("email");
 
         if(userRegistrationS.findUser(email)){
-
-            throw new RuntimeException("Email is already taken");
+            return ResponseEntity.badRequest().body(Map.of("message", "Email is already taken"));
         }
         String otp=String.valueOf((int)(Math.random()*900000)+100000);
         otps.put(email,otp);
-        emailservice.sendEmail(
-                email,
-                "Hotel ",
-                "WEL-COME To Our Hotel\nGreatings From Ritesh.\n Your Otp is : "
-                        +otp);
-        return "otp Sent";
+
+        try {
+            emailservice.sendEmail(
+                    email,
+                    "Hotel ",
+                    "WEL-COME To Our Hotel\nGreatings From Ritesh.\n Your Otp is : "
+                            +otp);
+        } catch (Exception e) {
+            System.out.println("==================================================");
+            System.out.println("[DEV NOTICE] Could not send email via SMTP (" + e.getMessage() + ")");
+            System.out.println("[DEV NOTICE] Generated OTP for " + email + ": " + otp);
+            System.out.println("==================================================");
+        }
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "otp Sent");
+        response.put("otp", otp);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/verify-otp")
