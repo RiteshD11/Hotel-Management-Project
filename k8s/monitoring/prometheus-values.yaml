@@ -1,0 +1,15 @@
+grafana:
+  enabled: true
+
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+
+prometheus:
+  enabled: true
+
+  prometheusSpec:
+    scrapeInterval: 30s
+    evaluationInterval: 30s
