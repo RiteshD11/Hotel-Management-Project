@@ -13,8 +13,5 @@ CI/CD test
 Final CI/CD check
 
 Complete CI/CD check
-
-Testing CI/CD
-Testing CI/CD 2
-Testing CI/CD 3
-Testing CI/CD 4
+Testing of CI/CD
+Testing of CI/CD 2
