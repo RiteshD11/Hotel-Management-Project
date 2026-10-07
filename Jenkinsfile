@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        KUBECONFIG = '/home/piyush05/.kube/config'
-        MINIKUBE_HOME = '/home/piyush05/.minikube'
+    KUBECONFIG = '/var/lib/jenkins/.kube/config'
+    MINIKUBE_HOME = '/var/lib/jenkins/.minikube'
     }
 
     triggers {
